@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Forge — Agent Build Pipeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-mark">▮▮▯</span>
+      <span class="brand-name">CODER BUDDY</span>
+    </div>
+    <p class="brand-sub">planner → architect → coder</p>
+
+    <form id="generate-form" class="prompt-form">
+      <label for="prompt">Describe what to build</label>
+      <textarea id="prompt" placeholder="e.g. A colourful modern todo app in HTML, CSS and JS" rows="6" required></textarea>
+      <button type="submit" id="generate-btn">
+        <span class="btn-label">Run pipeline</span>
+      </button>
+    </form>
+
+    <div class="history">
+      <h2>Runs</h2>
+      <ul id="job-list" class="job-list"></ul>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <section class="pipeline-rail" id="pipeline-rail">
+      <div class="stage" data-stage="planning">
+        <div class="stage-node"><span class="stage-index">01</span></div>
+        <div class="stage-label">Plan</div>
+      </div>
+      <div class="stage-track"><div class="stage-track-fill" id="fill-1"></div></div>
+
+      <div class="stage" data-stage="architecting">
+        <div class="stage-node"><span class="stage-index">02</span></div>
+        <div class="stage-label">Architect</div>
+      </div>
+      <div class="stage-track"><div class="stage-track-fill" id="fill-2"></div></div>
+
+      <div class="stage" data-stage="coding">
+        <div class="stage-node"><span class="stage-index">03</span></div>
+        <div class="stage-label">Code</div>
+        <div class="stage-sub" id="step-counter"></div>
+      </div>
+    </section>
+
+    <section class="status-row">
+      <span id="status-pill" class="status-pill idle">idle</span>
+      <span id="status-text" class="status-text">Waiting for a prompt.</span>
+      <a id="download-link" class="download-link hidden" href="#" download>Download .zip</a>
+    </section>
+
+    <section class="panels">
+      <div class="panel console-panel">
+        <div class="panel-head">
+          <span>Build log</span>
+        </div>
+        <div id="console" class="console"></div>
+      </div>
+
+      <div class="panel side-panel">
+        <div class="panel-tabs">
+          <button class="tab-btn active" data-tab="plan">Plan</button>
+          <button class="tab-btn" data-tab="files">Files</button>
+        </div>
+
+        <div class="tab-content" id="tab-plan">
+          <div id="plan-empty" class="empty-note">No plan yet — run the pipeline to see the project brief here.</div>
+          <div id="plan-body" class="plan-body hidden">
+            <h3 id="plan-name"></h3>
+            <p id="plan-desc" class="plan-desc"></p>
+            <div class="plan-meta">
+              <span class="meta-label">Stack</span>
+              <span id="plan-stack"></span>
+            </div>
+            <div class="plan-meta">
+              <span class="meta-label">Features</span>
+              <ul id="plan-features"></ul>
+            </div>
+            <div class="plan-meta">
+              <span class="meta-label">Files</span>
+              <ul id="plan-files"></ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content hidden" id="tab-files">
+          <div class="file-explorer">
+            <ul id="file-list" class="file-list"></ul>
+            <pre id="file-content" class="file-content">Select a file to preview its contents.</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
