@@ -24,7 +24,7 @@ from pydantic import BaseModel
 from agents import tools
 from agents.graph import planner_agent, architect_agent, coder_agent
 from agents.states import CoderState, Plan, TaskPlan
-
+import os
 BASE_DIR = pathlib.Path(__file__).parent.resolve()
 WORKSPACE_ROOT = BASE_DIR / "workspace"
 WORKSPACE_ROOT.mkdir(parents=True, exist_ok=True)
@@ -238,9 +238,9 @@ def serve_index():
     return FileResponse(str(FRONTEND_DIR / "index.html"))
 import uvicorn
 if __name__ == "__main__":
-    uvicorn.run(
-        "backend:app",
-        host="127.0.0.1",
-        port=9090,
-        reload=True
-    )
+        uvicorn.run(
+            "backend:app",
+            host="0.0.0.0",
+            port=int(os.environ.get("PORT", 9090)),
+            reload=False,
+        )
